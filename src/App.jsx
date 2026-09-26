@@ -1,36 +1,43 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AppDataProvider } from './context/AppDataContext';
-import Store from './pages/Store';
 import AdminLayout from './layouts/AdminLayout';
-import Dashboard from './pages/admin/Dashboard';
-import ProductsManager from './pages/admin/ProductsManager';
+import SuperAdminLayout from './layouts/SuperAdminLayout';
+import Store from './pages/Store';
 import CategoriesManager from './pages/admin/CategoriesManager';
+import Dashboard from './pages/admin/Dashboard';
+import FinanceManager from './pages/admin/FinanceManager';
+import OrdersManager from './pages/admin/OrdersManager';
+import ProductsManager from './pages/admin/ProductsManager';
+import StoreSettings from './pages/admin/StoreSettings';
+import BillingManager from './pages/superadmin/BillingManager';
+import MarketsManager from './pages/superadmin/MarketsManager';
+import PlatformSettings from './pages/superadmin/PlatformSettings';
+import SuperDashboard from './pages/superadmin/SuperDashboard';
+import AdminAccess from './components/AdminAccess';
 
-function App() {
+function AppRoutes() {
   return (
-    <AppDataProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Rota da Loja */}
-          <Route path="/" element={<Store />} />
-
-          {/* Rotas do Admin */}
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="products" element={<ProductsManager />} />
-            <Route path="categories" element={<CategoriesManager />} />
-            {/* Placeholders for future pages */}
-            <Route path="users" element={<div className="p-8"><h2 className="text-xl font-bold">Gestão de Usuários (Em Breve)</h2></div>} />
-            <Route path="settings" element={<div className="p-8"><h2 className="text-xl font-bold">Configurações (Em Breve)</h2></div>} />
-          </Route>
-
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AppDataProvider>
+    <Routes>
+      <Route path="/" element={<Store />} />
+      <Route path="/admin" element={<AdminAccess><AdminLayout /></AdminAccess>}>
+        <Route index element={<Dashboard />} />
+        <Route path="orders" element={<OrdersManager />} />
+        <Route path="products" element={<ProductsManager />} />
+        <Route path="categories" element={<CategoriesManager />} />
+        <Route path="finance" element={<FinanceManager />} />
+        <Route path="settings" element={<StoreSettings />} />
+      </Route>
+      <Route path="/superadmin" element={<SuperAdminLayout />}>
+        <Route index element={<SuperDashboard />} />
+        <Route path="markets" element={<MarketsManager />} />
+        <Route path="billing" element={<BillingManager />} />
+        <Route path="settings" element={<PlatformSettings />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
-export default App;
+export default function App() {
+  return <AppDataProvider><BrowserRouter><AppRoutes /></BrowserRouter></AppDataProvider>;
+}

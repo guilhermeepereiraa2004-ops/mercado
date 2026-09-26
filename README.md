@@ -1,16 +1,20 @@
-# React + Vite
+# CestaOS
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Protótipo funcional de uma plataforma multi-mercado com três experiências conectadas:
 
-Currently, two official plugins are available:
+- `/` — vitrine do cliente, busca, filtros, carrinho e checkout;
+- `/admin` — operação do mercado, Kanban de pedidos, catálogo, financeiro e identidade da loja;
+- `/superadmin` — gestão master de mercados, comissões sobre pedidos, repasses e dados Pix.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Executar
 
-## React Compiler
+```bash
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Persistência
 
-## Expanding the Oxlint configuration
+Esta versão é uma demonstração front-end. Os dados ficam no `localStorage` do navegador e sincronizam entre abas. O checkout cria pedidos reais no Kanban e os indicadores financeiros são recalculados a partir dos pedidos entregues.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Para produção, substitua a camada de contexto por uma API com banco de dados, autenticação, gateway de pagamento, armazenamento de imagens e emissão financeira.
